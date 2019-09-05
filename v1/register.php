@@ -24,7 +24,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $user = $db->getUser($username);
             $response['error'] = false;
             $response['message'] = "User created successfully.";
-            $response['api_key'] = $user['api_key'];
+            foreach($user as $x => $x_value) {
+                echo "Key=" . $x . ", Value=" . $x_value;
+                echo "<br>";
+            }
         } elseif ($result == USER_ALREADY_EXISTS) {
             $response['error'] = true;
             $response['message'] = 'User already exists.';
