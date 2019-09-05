@@ -21,10 +21,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $result = $db->createUser($username, $password, $email, $firstname, $lastname, $bottlesize);
 
         if ($result == USER_CREATED) {
-            $user = $db->userExists($username, $email);
+            $user = $db->getUser($username);
             $response['error'] = false;
             $response['message'] = "User created successfully.";
-            $response['user_exists'] = $user;
+            $response['api_key'] = $user['api_key'];
         } elseif ($result == USER_ALREADY_EXISTS) {
             $response['error'] = true;
             $response['message'] = 'User already exists.';
