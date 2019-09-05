@@ -45,7 +45,8 @@ class DbOperation {
         $stmt = $this->conn->prepare("select * from users where username = ?");
         $stmt->bind_param("s", $username);
         $stmt->execute();
-        $user = $stmt->store_result()->fetch_assoc();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
         $stmt->close();
         return $user;
     }
