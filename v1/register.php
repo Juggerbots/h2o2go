@@ -23,7 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($result == USER_CREATED) {
             $user = $db->getUser($username);
             $response['error'] = false;
-            $response['message'] = "User created successfully.";
             $response['api_key'] = $user['api_key'];
         } elseif ($result == USER_ALREADY_EXISTS) {
             $response['error'] = true;
