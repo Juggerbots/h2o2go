@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $user = $db->userExists($username, $email);
             $response['error'] = false;
             $response['message'] = "User created successfully.";
-            echo $user;
+            $response['user_exists'] = $user;
         } elseif ($result == USER_ALREADY_EXISTS) {
             $response['error'] = true;
             $response['message'] = 'User already exists.';
