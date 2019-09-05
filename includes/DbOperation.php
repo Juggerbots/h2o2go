@@ -59,7 +59,7 @@ class DbOperation {
         return $num_rows > 0;
     }
 
-    private function userExists($username, $email) {
+    public function userExists($username, $email) {
         $stmt = $this->conn->prepare("select id from users where username = ? or email = ?");
         $stmt->bind_param("ss", $username, $email);
         $stmt->execute();
