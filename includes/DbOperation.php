@@ -68,7 +68,7 @@ class DbOperation {
         if ($this->isValidApiKey($username, $api_key)) {
             $user = $this->getUser($username);
             $id = $user['id'];
-            $stmt = $this->conn->prepare('select sum(amount) as n_refills from refills where user_id = ?');
+            $stmt = $this->conn->prepare('select coalesce(sum(amount),0) as n_refills from refills where user_id = ?');
             $stmt->bind_param('i', $id);
             $stmt->execute();
             $result = $stmt->get_result();
