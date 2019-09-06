@@ -6,17 +6,12 @@ require_once "../includes/HelperFunctions.php";
 $response = array();
 $helper = new HelperFunctions();
 $request_params = $_REQUEST;
-$headers = $helper->getallheaders();
-
-foreach ($headers as $name => $value) {
-    echo "Name: " . $name . " Value: " . $value . "<br>";
-}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if ($helper->verifyRequiredParams($request_params, array('username', 'amount')) && isset($headers['Authorization'])) {
+    if ($helper->verifyRequiredParams($request_params, array('username', 'amount', 'api_key'))) {
         $username = $_POST['username'];
         $amount = $_POST['amount'];
-        $api_key = $headers['Authorization'];
+        $api_key = $_POST['api_key'];
 
         $db = new DbOperation();
 
