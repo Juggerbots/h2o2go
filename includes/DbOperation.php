@@ -52,6 +52,9 @@ class DbOperation {
     }
 
     public function logRefill($username, $amount, $api_key) {
+        if ($this->isValidApiKey($username, $api_key)) {
+            return REFILL_LOGGED;
+        }
         // if (isValidApiKey($username, $api_key)) {
         //     $user = $this->getUser($username);
         //     $id = $user["id"];
