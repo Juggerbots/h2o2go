@@ -8,6 +8,7 @@ $helper = new HelperFunctions();
 $request_params = $_REQUEST;
 echo "help";
 $headers = apache_request_headers();
+echo "oh no";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($helper->verifyRequiredParams($request_params, array('username', 'amount')) && isset($headers['Authorization'])) {
