@@ -18,6 +18,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $user = $db->getUser($username);
 
             $response['error'] = false;
+            $response['username'] = $user['username'];
+            $response['email'] = $user['email'];
+            $response['firstname'] = $user['firstname'];
+            $response['lastname'] = $user['lastname'];
+            $response['bottlesize'] = $user['bottlesize'];
             $response['api_key'] = $user['api_key'];
         } else {
             $response['error'] = true;
