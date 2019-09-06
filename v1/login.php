@@ -9,7 +9,7 @@ $request_params = $_REQUEST;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $error_fields = $helper->verifyRequiredParams($request_params,array('username','password'));
-    if ($error_fields['error']) {
+    if (!$error_fields['error']) {
         $db = new DbOperation();
 
         $username = $_POST['username'];
