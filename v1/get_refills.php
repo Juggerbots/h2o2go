@@ -9,14 +9,10 @@ $request_params = $_REQUEST;
 $server = $_SERVER;
 $headers = $helper->getallheaders($server);
 
-foreach ($headers as $name => $value) {
-    echo "Name: " . $name . " Value: " . $value;
-}
-
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    if ($helper->verifyRequiredParams($request_params, array('username', 'api_key'))) {
+    if ($helper->verifyRequiredParams($request_params, array('username'))) {
         $username = $_GET['username'];
-        $api_key = $_GET['api_key'];
+        $api_key = $headers['Authorization'];
 
         $db = new DbOperation();
 
