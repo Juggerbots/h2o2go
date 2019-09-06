@@ -43,25 +43,25 @@ class DbOperation {
 
     public function getUser($username) {
         $stmt = $this->conn->prepare("select * from users where username = ?");
-        echo "7";
+        echo "7<br>";
         $stmt->bind_param("s", $username);
-        echo "8";
+        echo "8<br>";
         $stmt->execute();
-        echo "9";
+        echo "9<br>";
         $result = $stmt->get_result();
-        echo "10";
+        echo "10<br>";
         $user = $result->fetch_assoc();
-        echo "11";
+        echo "11<br>";
         $stmt->close();
-        echo "12";
+        echo "12<br>";
         return $user;
     }
 
     public function logRefill($username, $amount, $api_key) {
         if (isValidApiKey($username, $api_key)) {
-            echo "6";
+            echo "6<br>";
             $user = $this->getUser($username);
-            echo "13";
+            echo "13<br>";
             $id = $user["id"];
             #$stmt = $this->conn->prepare("insert into refills (user_id, amount) values (?, ?)");
             #$stmt->bind_param("id", $id, $amount);
@@ -74,16 +74,16 @@ class DbOperation {
 
     private function isValidApiKey($username, $api_key) {
         $stmt = $this->conn->prepare("select * from users where username = ? and api_key = ?");
-        echo "1";
+        echo "1<br>";
         $stmt->bind_param("ss", $username, $api_key);
-        echo "2";
+        echo "2<br>";
         $stmt->execute();
-        echo "3";
+        echo "3<br>";
         $stmt->store_result();
-        echo "4";
+        echo "4<br>";
         $num_rows = $stmt->num_rows;
         $stmt->close();
-        echo "5";
+        echo "5<br>";
         return $num_rows > 0;
     }
 

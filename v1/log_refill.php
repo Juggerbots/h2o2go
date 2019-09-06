@@ -15,9 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $db = new DbOperation();
 
-        echo ":(";
-
-        $result = $db->log_refill($username, $amount, $api_key);
+        $result = $db->logRefill($username, $amount, $api_key);
 
         if ($result == REFILL_LOGGED) {
             $response['error'] = false;
