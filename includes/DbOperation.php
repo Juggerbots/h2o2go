@@ -53,17 +53,14 @@ class DbOperation {
 
     public function logRefill($username, $amount, $api_key) {
         if ($this->isValidApiKey($username, $api_key)) {
+            $user = $this->getUser($username);
+            $id = $user["id"];
+            $stmt = $this->conn->prepare("insert into refills (user_id, amount) values (?, ?)");
+            $stmt->bind_param("id", $id, $amount);
+            $stmt->execute();
+            $stmt->close();
             return REFILL_LOGGED;
         }
-        // if (isValidApiKey($username, $api_key)) {
-        //     $user = $this->getUser($username);
-        //     $id = $user["id"];
-        //     $stmt = $this->conn->prepare("insert into refills (user_id, amount) values (?, ?)");
-        //     $stmt->bind_param("id", $id, $amount);
-        //     $stmt->execute();
-        //     $stmt->close();
-        //     return REFILL_LOGGED;
-        // }
         return INVALID_API_KEY;
     }
 
