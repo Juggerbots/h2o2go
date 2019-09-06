@@ -43,17 +43,25 @@ class DbOperation {
 
     public function getUser($username) {
         $stmt = $this->conn->prepare("select * from users where username = ?");
+        echo "7";
         $stmt->bind_param("s", $username);
+        echo "8";
         $stmt->execute();
+        echo "9";
         $result = $stmt->get_result();
+        echo "10";
         $user = $result->fetch_assoc();
+        echo "11";
         $stmt->close();
+        echo "12";
         return $user;
     }
 
     public function logRefill($username, $amount, $api_key) {
         if (isValidApiKey($username, $api_key)) {
+            echo "6";
             $user = $this->getUser($username);
+            echo "13";
             $id = $user["id"];
             #$stmt = $this->conn->prepare("insert into refills (user_id, amount) values (?, ?)");
             #$stmt->bind_param("id", $id, $amount);
@@ -66,11 +74,16 @@ class DbOperation {
 
     private function isValidApiKey($username, $api_key) {
         $stmt = $this->conn->prepare("select * from users where username = ? and api_key = ?");
+        echo "1";
         $stmt->bind_param("ss", $username, $api_key);
+        echo "2";
         $stmt->execute();
+        echo "3";
         $stmt->store_result();
+        echo "4";
         $num_rows = $stmt->num_rows;
         $stmt->close();
+        echo "5";
         return $num_rows > 0;
     }
 
