@@ -9,7 +9,7 @@ $request_params = $_REQUEST;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $error_fields = $helper->verifyRequiredParams($request_params, array('username', 'amount', 'api_key'));
-    if ($error_fields['error']) {
+    if (!$error_fields['error']) {
         $username = $_POST['username'];
         $amount = $_POST['amount'];
         $api_key = $_POST['api_key'];

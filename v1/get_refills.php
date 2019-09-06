@@ -11,7 +11,7 @@ $headers = $helper->getallheaders($server);
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $error_fields = $helper->verifyRequiredParams($request_params, array('username'));
-    if ($error_fields['error'] && isset($headers['Authorization'])) {
+    if (!$error_fields['error'] && isset($headers['Authorization'])) {
         $username = $_GET['username'];
         $api_key = $headers['Authorization'];
 
