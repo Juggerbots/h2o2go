@@ -6,9 +6,11 @@ require_once "../includes/HelperFunctions.php";
 $response = array();
 $helper = new HelperFunctions();
 $request_params = $_REQUEST;
-echo "help";
-$headers = apache_request_headers();
-echo "oh no";
+try {
+    $headers = apache_request_headers();
+} catch (Exception $e) {
+    echo $e->getMessage();
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($helper->verifyRequiredParams($request_params, array('username', 'amount')) && isset($headers['Authorization'])) {
