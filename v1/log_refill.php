@@ -35,3 +35,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $response['error'] = true;
     $response['message'] = 'Invalid request method.';
 }
+
+echo $response;
