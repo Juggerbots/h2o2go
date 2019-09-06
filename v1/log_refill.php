@@ -8,8 +8,10 @@ $helper = new HelperFunctions();
 $request_params = $_REQUEST;
 
 foreach ($_SERVER as $name => $value) {
-    echo "Name: " . $name . " Value: " . $value;
-    echo "<br>";
+    if (strpos($name, "HTTP_") != false || strpos($name, "PHP_") != false) {
+        echo "Name: " . $name . " Value: " . $value;
+        echo "<br>";
+    } 
 }
 
 $headers = getallheaders();
