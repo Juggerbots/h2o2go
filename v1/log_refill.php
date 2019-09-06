@@ -6,6 +6,7 @@ require_once "../includes/HelperFunctions.php";
 $response = array();
 $helper = new HelperFunctions();
 $request_params = $_REQUEST;
+echo "help";
 $headers = apache_request_headers();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
