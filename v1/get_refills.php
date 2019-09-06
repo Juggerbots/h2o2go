@@ -10,7 +10,7 @@ $server = $_SERVER;
 $headers = $helper->getallheaders($server);
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    if ($helper->verifyRequiredParams($request_params, array('username'))) {
+    if ($helper->verifyRequiredParams($request_params, array('username')) && isset($headers['Authorization'])) {
         $username = $_GET['username'];
         $api_key = $headers['Authorization'];
 
