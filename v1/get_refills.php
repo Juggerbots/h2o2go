@@ -10,7 +10,8 @@ $server = $_SERVER;
 $headers = $helper->getallheaders($server);
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    if ($helper->verifyRequiredParams($request_params, array('username')) && isset($headers['Authorization'])) {
+    $error_fields = $helper->verifyRequiredParams($request_params, array('username'));
+    if ($error_fields['error'] && isset($headers['Authorization'])) {
         $username = $_GET['username'];
         $api_key = $headers['Authorization'];
 
@@ -27,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         }
     } else {
         $response['error'] = true;
-        $response['message'] = 'Required parameters missing.';
+        $response['message'] = $error_fields['fields'];
     }
 } else {
     $response['error'] = true;

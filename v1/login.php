@@ -8,7 +8,8 @@ $helper = new HelperFunctions();
 $request_params = $_REQUEST;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if ($helper->verifyRequiredParams($request_params,array('username','password'))) {
+    $error_fields = $helper->verifyRequiredParams($request_params,array('username','password'));
+    if ($error_fields['error']) {
         $db = new DbOperation();
 
         $username = $_POST['username'];
@@ -30,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     } else {
         $response['error'] = true;
-        $response['message'] = 'Required parameters missing.';
+        $response['message'] = $error_fields['fields'];
     }
 } else {
     $response['error'] = true;
