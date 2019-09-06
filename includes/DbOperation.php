@@ -4,8 +4,8 @@ class DbOperation {
     private $conn;
 
     function __construct() {
-        require_once dirname(__FILE__) . "/Config.php";
-        require_once dirname(__FILE__) . "/DbConnect.php";
+        require_once dirname(__FILE__) . '/Config.php';
+        require_once dirname(__FILE__) . '/DbConnect.php';
 
         $db = new DbConnect();
         $this->conn = $db->connect();
@@ -15,8 +15,8 @@ class DbOperation {
         if (!$this->userExists($username, $email)) {
             $password = md5($pass);
             $api_key = $this->generateApiKey();
-            $stmt = $this->conn->prepare("insert into users (username, password, email, firstname, lastname, bottlesize, api_key) values (?,?,?,?,?,?,?)");
-            $stmt->bind_param("sssssds", $username, $password, $email, $firstname, $lastname, $bottlesize,$api_key);
+            $stmt = $this->conn->prepare('insert into users (username, password, email, firstname, lastname, bottlesize, api_key) values (?,?,?,?,?,?,?)');
+            $stmt->bind_param('sssssds', $username, $password, $email, $firstname, $lastname, $bottlesize,$api_key);
             if ($stmt->execute()) {
                 $stmt->close();
                 return USER_CREATED;
@@ -32,8 +32,8 @@ class DbOperation {
 
     public function userLogin($username, $pass) {
         $password = md5($pass);
-        $stmt = $this->conn->prepare("select * from users where username = ? and password = ?");
-        $stmt->bind_param("ss", $username, $password);
+        $stmt = $this->conn->prepare('select * from users where username = ? and password = ?');
+        $stmt->bind_param('ss', $username, $password);
         $stmt->execute();
         $stmt->store_result();
         $num_rows = $stmt->num_rows;
@@ -42,8 +42,8 @@ class DbOperation {
     }
 
     public function getUser($username) {
-        $stmt = $this->conn->prepare("select * from users where username = ?");
-        $stmt->bind_param("s", $username);
+        $stmt = $this->conn->prepare('select * from users where username = ?');
+        $stmt->bind_param('s', $username);
         $stmt->execute();
         $result = $stmt->get_result();
         $user = $result->fetch_assoc();
@@ -54,9 +54,9 @@ class DbOperation {
     public function logRefill($username, $amount, $api_key) {
         if ($this->isValidApiKey($username, $api_key)) {
             $user = $this->getUser($username);
-            $id = $user["id"];
-            $stmt = $this->conn->prepare("insert into refills (user_id, amount) values (?, ?)");
-            $stmt->bind_param("id", $id, $amount);
+            $id = $user['id'];
+            $stmt = $this->conn->prepare('insert into refills (user_id, amount) values (?, ?)');
+            $stmt->bind_param('id', $id, $amount);
             $stmt->execute();
             $stmt->close();
             return REFILL_LOGGED;
@@ -64,9 +64,24 @@ class DbOperation {
         return INVALID_API_KEY;
     }
 
+    public function getRefills($username, $api_key) {
+        if ($this->isValidApiKey($username, $api_key)) {
+            $user = $this->getUser($username);
+            $id = $user['id'];
+            $stmt = $this->conn->prepare('select sum(amount) as n_refills from refills where user_id = ?');
+            $stmt->bind_param('i', $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $result_assoc = $result->fetch_assoc();
+            $stmt->close();
+            return $result_assoc;
+        }
+        return INVALID_API_KEY;
+    }
+
     private function isValidApiKey($username, $api_key) {
-        $stmt = $this->conn->prepare("select * from users where username = ? and api_key = ?");
-        $stmt->bind_param("ss", $username, $api_key);
+        $stmt = $this->conn->prepare('select * from users where username = ? and api_key = ?');
+        $stmt->bind_param('ss', $username, $api_key);
         $stmt->execute();
         $stmt->store_result();
         $num_rows = $stmt->num_rows;
@@ -75,8 +90,8 @@ class DbOperation {
     }
 
     private function userExists($username, $email) {
-        $stmt = $this->conn->prepare("select id from users where username = ? or email = ?");
-        $stmt->bind_param("ss", $username, $email);
+        $stmt = $this->conn->prepare('select id from users where username = ? or email = ?');
+        $stmt->bind_param('ss', $username, $email);
         $stmt->execute();
         $stmt->store_result();
         $num_rows = $stmt->num_rows;

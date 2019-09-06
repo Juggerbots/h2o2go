@@ -1,7 +1,7 @@
 <?php
 
-require_once "../includes/DbOperation.php";
-require_once "../includes/HelperFunctions.php";
+require_once '../includes/DbOperation.php';
+require_once '../includes/HelperFunctions.php';
 
 $response = array();
 $helper = new HelperFunctions();
