@@ -36,4 +36,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $response['message'] = 'Invalid request method.';
 }
 
-echo $response;
+echo json_encode($response);
