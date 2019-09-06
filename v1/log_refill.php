@@ -7,6 +7,7 @@ $response = array();
 $helper = new HelperFunctions();
 $request_params = $_REQUEST;
 $headers = $helper->getallheaders();
+echo "why why why why WHY";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($helper->verifyRequiredParams($request_params, array('username', 'amount')) && isset($headers['Authorization'])) {
