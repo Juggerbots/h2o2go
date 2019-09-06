@@ -31,3 +31,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $response['error'] = true;
     $response['message'] = 'Invalid request method.';
 }
+
+echo json_encode($response);
