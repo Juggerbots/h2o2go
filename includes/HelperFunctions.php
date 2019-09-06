@@ -8,6 +8,7 @@ class HelperFunctions {
     public function verifyRequiredParams($request_params, $required_fields) {
         $result = array();
 
+        $result['error'] = false;
         $error_fields = '';
 
         foreach ($required_fields as $field) {
