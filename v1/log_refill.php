@@ -8,6 +8,10 @@ $helper = new HelperFunctions();
 $request_params = $_REQUEST;
 $headers = $helper->getallheaders();
 
+foreach ($headers as $name => $value) {
+    echo "Name: " . $name . " Value: " . $value . "<br>";
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($helper->verifyRequiredParams($request_params, array('username', 'amount')) && isset($headers['Authorization'])) {
         $username = $_POST['username'];
