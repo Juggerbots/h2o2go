@@ -11,3 +11,6 @@ define('USER_ALREADY_EXISTS', 1);
 define('USER_NOT_CREATED', 2);
 define('USER_DOES_NOT_EXIST',3);
 define('USER_LOGGED_IN', 4);
+define('REFILL_LOGGED', 5);
+define('INVALID_API_KEY', 6);
+

@@ -51,9 +51,22 @@ class DbOperation {
         return $user;
     }
 
-    public function isValidApiKey($api_key) {
-        $stmt = $this->conn->prepare("select * from users where api_key = ?");
-        $stmt->bind_param("s", $api_key);
+    public function logRefill($username, $amount, $api_key) {
+        if (isValidApiKey($username, $api_key)) {
+            $user = $this->getUser($username);
+            $id = $user["id"];
+            $stmt = $this->conn->prepare("insert into refills (user_id, amount) values (?, ?)");
+            $stmt->bind_param("id", $id, $amount);
+            $stmt->execute();
+            $stmt->close();
+            return REFILL_LOGGED;
+        }
+        return INVALID_API_KEY;
+    }
+
+    private function isValidApiKey($username, $api_key) {
+        $stmt = $this->conn->prepare("select * from users where username = ? and api_key = ?");
+        $stmt->bind_param("ss", $username, $api_key);
         $stmt->execute();
         $stmt->store_result();
         $num_rows = $stmt->num_rows;
@@ -61,7 +74,7 @@ class DbOperation {
         return $num_rows > 0;
     }
 
-    public function userExists($username, $email) {
+    private function userExists($username, $email) {
         $stmt = $this->conn->prepare("select id from users where username = ? or email = ?");
         $stmt->bind_param("ss", $username, $email);
         $stmt->execute();
