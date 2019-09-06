@@ -15,7 +15,7 @@ class HelperFunctions {
         return true;
     }
 
-    public function getallheaders() {
+    public function getallheaders($server) {
         $headers = [];
         foreach ($_SERVER as $name => $value) {
             if (substr($name, 0, 5) == 'HTTP_') {

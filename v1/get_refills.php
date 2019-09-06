@@ -6,6 +6,12 @@ require_once '../includes/HelperFunctions.php';
 $response = array();
 $helper = new HelperFunctions();
 $request_params = $_REQUEST;
+$server = $_SERVER;
+$headers = $helper->getallheaders($server);
+
+foreach ($headers as $name => $value) {
+    echo "Name: " . $name . " Value: " . $value;
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if ($helper->verifyRequiredParams($request_params, array('username', 'api_key'))) {
