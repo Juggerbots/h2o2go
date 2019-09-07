@@ -97,7 +97,7 @@ class DbOperation {
             $stmt = $this->conn->prepare('select refill_locations.location_name,refill_locations.description, refill_locations.latitude, refill_locations.longitude, users.username from refill_locations left join users on users.id=refill_locations.user_id;');
             $stmt->execute();
             $result = $stmt->get_result();
-            $result_assoc = $result->fetch_all(MYSQLI_BOTH);
+            $result_assoc = $result->fetch_all(MYSQLI_ASSOC);
             $stmt->close();
             return $result_assoc;
         }
