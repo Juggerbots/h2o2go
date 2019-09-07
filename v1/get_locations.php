@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         $db = new DbOperation();
 
-        $result = $db->getLocations();
+        $result = $db->getLocations($username, $api_key);
 
         if ($result == INVALID_API_KEY) {
             $response['error'] = true;
