@@ -90,7 +90,13 @@ class DbOperation {
                 return LOCATION_ADDED;
             }
             $stmt->close();
-            return $this->conn->error;
+            $a = array($id, $name, $description, $lat, $long);
+
+            foreach ($a as $item) {
+                if ($item == null) {
+                    return 'An item is null.';
+                }
+            }
         }
         return INVALID_API_KEY;
     }
