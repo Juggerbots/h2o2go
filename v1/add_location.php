@@ -1,14 +1,13 @@
 <?php
 
-require_once '../includes/DbOperation';
-require_once '../includes/HelperFunctions';
+require_once '../includes/DbOperation.php';
+require_once '../includes/HelperFunctions.php';
 
 $response = array();
 $helper = new HelperFunctions();
 $request_params = $_REQUEST;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    echo "woot";
     $error_fields = $helper->verifyRequiredParams($request_params, array('name', 'description', 'lat', 'long', 'username', 'api_key'));
     if (!$error_fields['error']) {
         $name = $_POST['name'];
