@@ -92,6 +92,18 @@ class DbOperation {
         return INVALID_API_KEY;
     }
 
+    public function getLocations($username, $api_key) {
+        if ($this->isValidApiKey($username, $api_key)) {
+            $stmt = $this->conn->prepare('select refill_locations.location_name, refill_locations.description, refill_locations.latitude, refill_locations.longitude, users.username left join users on users.id=refill_locations.user_id');
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $result_assoc = $result->fetch_assoc();
+            $stmt->close();
+            return $result_assoc;
+        }
+        return INVALID_API_KEY;
+    }
+
     private function isValidApiKey($username, $api_key) {
         $stmt = $this->conn->prepare('select * from users where username = ? and api_key = ?');
         $stmt->bind_param('ss', $username, $api_key);
