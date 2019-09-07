@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($result == INVALID_API_KEY) {
             $response['error'] = true;
             $response['message'] = 'Invalid API key.';
-        } else {
+        } elseif ($result == LOCATION_ADDED) {
             $response['error'] = false;
             $response['message'] = 'Location added successfully.';
         }
