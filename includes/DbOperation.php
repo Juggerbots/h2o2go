@@ -97,11 +97,7 @@ class DbOperation {
             $a['lat'] = $lat;
             $a['long'] = $long;
 
-            foreach ($a as $n => $item) {
-                if ($item == null) {
-                    return $n . ' is null.';
-                }
-            }
+            return json_encode($user);
         }
         return INVALID_API_KEY;
     }
