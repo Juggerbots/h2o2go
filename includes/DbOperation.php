@@ -100,7 +100,6 @@ class DbOperation {
             $result_assoc = $result->fetch_assoc();
             $stmt->close();
             return $result_assoc;
-            return 'Yup.';
         }
         return INVALID_API_KEY;
     }
