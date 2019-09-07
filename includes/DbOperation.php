@@ -44,11 +44,14 @@ class DbOperation {
     public function getUser($username) {
         $stmt = $this->conn->prepare('select * from users where username = ?');
         $stmt->bind_param('s', $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $user = $result->fetch_assoc();
-        $stmt->close();
-        return $user;
+        if (!$stmt->execute()) {
+            return "Could not fetch user";
+        } else {
+            $result = $stmt->get_result();
+            $user = $result->fetch_assoc();
+            $stmt->close();
+            return $user;
+        }
     }
 
     public function logRefill($username, $amount, $api_key) {
@@ -85,10 +88,10 @@ class DbOperation {
             $id = $user['id'];
             $stmt = $this->conn->prepare('insert into refill_locations (user_id, location_name, description, latitude, longitude) values (?, ?, ?, ?, ?)');
             $stmt->bind_param("issdd", $id, $name, $description, $lat, $long);
-            if ($stmt->execute()) {
-                $stmt->close();
-                return LOCATION_ADDED;
-            }
+            // if ($stmt->execute()) {
+            //     $stmt->close();
+            //     return LOCATION_ADDED;
+            // }
             $stmt->close();
             $a = array();
             $a['id'] = $id;
@@ -97,7 +100,7 @@ class DbOperation {
             $a['lat'] = $lat;
             $a['long'] = $long;
 
-            return json_encode($user);
+            return $user;
         }
         return INVALID_API_KEY;
     }
