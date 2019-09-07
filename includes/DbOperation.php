@@ -90,11 +90,16 @@ class DbOperation {
                 return LOCATION_ADDED;
             }
             $stmt->close();
-            $a = array($id, $name, $description, $lat, $long);
+            $a = array();
+            $a['id'] = $id;
+            $a['name'] = $name;
+            $a['description'] = $description;
+            $a['lat'] = $lat;
+            $a['long'] = $long;
 
-            foreach ($a as $item) {
+            foreach ($a as $n => $item) {
                 if ($item == null) {
-                    return 'An item is null.';
+                    return $n . ' is null.';
                 }
             }
         }
