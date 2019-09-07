@@ -17,11 +17,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $username = $_POST['username'];
         $api_key = $_POST['api_key'];
 
+        echo "woot";
+
         $db = new DbOperation();
 
         $result = $db->addLocation($name, $description, $lat, $long, $username, $api_key);
 
-        if ($result ==  INVALID_API_KEY) {
+        if ($result == INVALID_API_KEY) {
             $response['error'] = true;
             $response['message'] = 'Invalid API key.';
         } else {
