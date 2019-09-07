@@ -90,6 +90,7 @@ class DbOperation {
                 return LOCATION_ADDED;
             }
             $stmt->close();
+            return mysqli_errno();
         }
         return INVALID_API_KEY;
     }
