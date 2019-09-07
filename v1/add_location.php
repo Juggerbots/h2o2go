@@ -17,6 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $username = $_POST['username'];
         $api_key = $_POST['api_key'];
 
+        echo $name;
+
         $db = new DbOperation();
 
         $result = $db->addLocation($name, $description, $lat, $long, $username, $api_key);
