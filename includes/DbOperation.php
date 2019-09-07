@@ -22,7 +22,7 @@ class DbOperation {
                 return USER_CREATED;
             } else {
                 $stmt->close();
-                throw new Exception($this->conn->error);
+                return USER_NOT_CREATED;
             }
         } else {
             $stmt->close();
@@ -90,6 +90,7 @@ class DbOperation {
                 return LOCATION_ADDED;
             }
             $stmt->close();
+            throw new Exception($this->conn->error);
             return $this->conn->error;
         }
         return INVALID_API_KEY;
