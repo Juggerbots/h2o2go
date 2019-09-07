@@ -85,19 +85,9 @@ class DbOperation {
             $id = $user['id'];
             $stmt = $this->conn->prepare('insert into refill_locations (user_id, location_name, description, latitude, longitude) values (?, ?, ?, ?, ?)');
             $stmt->bind_param("issdd", $id, $name, $description, $lat, $long);
-            // if ($stmt->execute()) {
-            //     $stmt->close();
-            //     return LOCATION_ADDED;
-            // }
+            $stmt->execute();
             $stmt->close();
-            $a = array();
-            $a['id'] = $id;
-            $a['name'] = $name;
-            $a['description'] = $description;
-            $a['lat'] = $lat;
-            $a['long'] = $long;
-
-            return $user;
+            return LOCATION_ADDED;
         }
         return INVALID_API_KEY;
     }
