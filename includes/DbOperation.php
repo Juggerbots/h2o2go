@@ -83,14 +83,13 @@ class DbOperation {
         if ($this->isValidApiKey($username, $api_key)) {
             $username = $this->getUser($username);
             $id = $user['id'];
-            $stmt = $this->conn->prepare('insert into refill_locations (user_id, name, description, latitude, longitude) values (?, ?, ?, ?, ?)');
+            $stmt = $this->conn->prepare('insert into refill_locations (user_id, location_name, description, latitude, longitude) values (?, ?, ?, ?, ?)');
             $stmt->bind_param("issdd", $id, $name, $description, $lat, $long);
             if ($stmt->execute()) {
                 $stmt->close();
                 return LOCATION_ADDED;
             }
             $stmt->close();
-            throw new Exception($this->conn->error);
             return $this->conn->error;
         }
         return INVALID_API_KEY;
