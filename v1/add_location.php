@@ -8,6 +8,7 @@ $helper = new HelperFunctions();
 $request_params = $_REQUEST;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    echo "woot";
     $error_fields = $helper->verifyRequiredParams($request_params, array('name', 'description', 'lat', 'long', 'username', 'api_key'));
     if (!$error_fields['error']) {
         $name = $_POST['name'];
@@ -16,8 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $long = $_POST['long'];
         $username = $_POST['username'];
         $api_key = $_POST['api_key'];
-
-        echo "woot";
 
         $db = new DbOperation();
 
