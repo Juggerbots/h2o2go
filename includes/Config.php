@@ -13,4 +13,5 @@ define('USER_DOES_NOT_EXIST','d');
 define('USER_LOGGED_IN', 'e');
 define('REFILL_LOGGED', 'f');
 define('INVALID_API_KEY', 'g');
+define('LOCATION_ADDED', 'h');
 

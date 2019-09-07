@@ -79,6 +79,19 @@ class DbOperation {
         return INVALID_API_KEY;
     }
 
+    public function addLocation($name, $lat, $long, $username, $api_key) {
+        if ($this->isValidApiKey($username, $api_key)) {
+            $username = $this->getUser($username);
+            $id = $user['id'];
+            $stmt = $this->conn->prepare('insert into refill_locations (name, user_id, latitude, longitude) values (?, ?, ?, ?)');
+            $stmt->bind_param("sidd", $name, $id, $lat, $long);
+            $stmt->execute();
+            $stmt->close();
+            return LOCATION_ADDED;
+        }
+        return INVALID_API_KEY;
+    }
+
     private function isValidApiKey($username, $api_key) {
         $stmt = $this->conn->prepare('select * from users where username = ? and api_key = ?');
         $stmt->bind_param('ss', $username, $api_key);
